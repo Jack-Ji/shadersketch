@@ -1,0 +1,13 @@
+# editor temp file
+*.swp
+
+# ziglang temp files
+.zig-cache
+zig-out
+zig-pkg
+
+# shader files
+*.hlsl
+*.spv
+*.msl
+*.dxil
