@@ -5,8 +5,8 @@
     .minimum_zig_version = "0.16.0-dev.2322+ff8dbd010",
     .dependencies = .{
         .jok = .{
-            .url = "git+https://github.com/jack-ji/jok.git#5a29099094fb9a048faf3c1a947e0adf3d1cb17a",
-            .hash = "jok-0.97.3-NH_Nki1aOQHkxSrIhk0SEQxns9N041bw3kFIatozr3Ga",
+            .url = "git+https://github.com/jack-ji/jok.git#3144594c570e5bb99de64b63c7c68663716905b0",
+            .hash = "jok-0.100.6-NH_NkisGPAE3LIYAVJn5vwWWupPxRPhQK8fM4mjeX8A3",
         },
     },
     .paths = .{

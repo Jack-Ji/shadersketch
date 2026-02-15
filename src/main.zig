@@ -2,6 +2,7 @@ const std = @import("std");
 const builtin = @import("builtin");
 const jok = @import("jok");
 const j2d = jok.j2d;
+const geom = j2d.geom;
 const zgui = jok.vendor.zgui;
 const log = std.log.scoped(.shadersketch);
 
@@ -113,8 +114,8 @@ const shader_template =
 ;
 
 const ShaderParam = extern struct {
-    resolution: jok.Point,
-    cursor: jok.Point,
+    resolution: geom.Point,
+    cursor: geom.Point,
     time: f32,
     padding: [3]f32 = undefined,
 };
