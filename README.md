@@ -25,6 +25,9 @@ The compiled output name depends on the OS:
 - Linux: `compiled.spv`
 - macOS: `compiled.msl`
 
+## Texture workflow
+Watches for existence/modification of *tex.png* file in working directory, image file will be (re)loaded.
+
 ## Shader inputs
 The fragment shader receives a constant buffer in `register(b0, space3)`:
 ```hlsl
@@ -37,10 +40,6 @@ cbuffer Context : register(b0, space3) {
 - `resolution`: canvas size in pixels
 - `cursor`: mouse position in pixels
 - `time`: seconds since start
-
-## UI / Controls
-- **Menu → Keep on top** toggles the window always-on-top state.
-- Closing the window triggers a small quit confirmation dialog.
 
 ## Notes
 - Shader compile errors are logged to stderr; the previous shader remains active.

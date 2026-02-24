@@ -11,3 +11,6 @@ zig-pkg
 *.spv
 *.msl
 *.dxil
+
+# texture
+*.png

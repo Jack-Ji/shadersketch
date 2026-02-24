@@ -29,6 +29,7 @@ pub fn event(ctx: jok.Context, e: jok.Event) !void {
 
 pub fn update(ctx: jok.Context) !void {
     try checkAndLoadShader(ctx);
+    try checkAndLoadTexture(ctx);
 }
 
 pub fn draw(ctx: jok.Context) !void {
@@ -69,7 +70,17 @@ pub fn draw(ctx: jok.Context) !void {
     }
     var b = try batchpool.new(.{ .shader = shader orelse null });
     defer b.submit();
-    try b.rectFilled(csz.toRect(.origin), .rgb(30, 30, 40), .{});
+    if (tex) |t| {
+        const info = try t.query();
+        try b.image(t, .origin, .{
+            .scale = .{
+                .x = @as(f32, @floatFromInt(csz.width)) / @as(f32, @floatFromInt(info.width)),
+                .y = @as(f32, @floatFromInt(csz.height)) / @as(f32, @floatFromInt(info.height)),
+            },
+        });
+    } else {
+        try b.rectFilled(csz.toRect(.origin), .rgb(30, 30, 40), .{});
+    }
 }
 
 pub fn quit(ctx: jok.Context) void {
@@ -178,4 +189,38 @@ fn checkAndLoadShader(ctx: jok.Context) !void {
         log.err("Load compiled shader failed: {s}", .{@errorName(e)});
         return;
     };
+}
+
+//////////////////////////////////// Texture Management
+var tex: ?jok.Texture = null;
+const tex_file = "tex.png";
+var tex_source_timestamp: i64 = 0;
+var tex_check_timestamp: i64 = 0;
+
+fn checkAndLoadTexture(ctx: jok.Context) !void {
+    const now = std.Io.Clock.now(.awake, ctx.io());
+    if (now.toMilliseconds() - tex_check_timestamp < 1000) return;
+    tex_check_timestamp = now.toMilliseconds();
+
+    const stat_result = std.Io.Dir.cwd().statFile(ctx.io(), tex_file, .{}) catch return;
+    if (tex == null) {
+        log.info("Detected texture file, attempt to load...", .{});
+
+        tex_source_timestamp = stat_result.mtime.toMilliseconds();
+        tex = ctx.loadTexture(tex_file, .static, false) catch |e| {
+            log.err("Load texture failed: {s}", .{@errorName(e)});
+            return;
+        };
+    } else {
+        if (stat_result.mtime.toMilliseconds() == tex_source_timestamp) return;
+        tex_source_timestamp = stat_result.mtime.toMilliseconds();
+
+        log.info("Detected newer texture file, attempt to load...", .{});
+        const t = ctx.loadTexture(tex_file, .static, false) catch |e| {
+            log.err("Load texture failed: {s}", .{@errorName(e)});
+            return;
+        };
+        tex.?.destroy();
+        tex = t;
+    }
 }
