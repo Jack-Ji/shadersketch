@@ -1,6 +1,6 @@
 # shadersketch
 
-A tiny Shadertoy-style playground for live fragment shader experiments, built with Zig + Jok.
+A tiny Shadertoy-style playground for live fragment shader experiments, built with Zig(0.16.0) + Jok.
 
 ## Features
 - Live reload: edits to `shader.frag.hlsl` are detected and recompiled automatically.
