@@ -2,11 +2,11 @@
     .name = .shadersketch,
     .version = "0.0.0",
     .fingerprint = 0x2fad1dad952a925e, // Changing this has security and trust implications.
-    .minimum_zig_version = "0.16.0",
+    .minimum_zig_version = "0.17.0",
     .dependencies = .{
         .jok = .{
-            .url = "git+https://git.sr.ht/~jackji/jok#ca6ee6258ac9a5950846e2f2b79ef967d438dc78",
-            .hash = "jok-0.107.0-NH_NkiA_QgGa1gJoTNcu4OI3MGx8hURIpYdUZ2MEQ5hi",
+            .url = "git+https://git.sr.ht/~jackji/jok#41e88d9326932ef084d8de50c35eab3e6bc4925b",
+            .hash = "jok-0.108.1-NH_NktLCQgF9S_Tyq7QrnVy_TwgBI-RIDBSo2Mocx6Zj",
         },
     },
     .paths = .{
